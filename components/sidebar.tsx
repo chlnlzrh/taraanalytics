@@ -30,8 +30,13 @@ interface MenuSection {
   href?: string
   items?: Array<{
     title: string
-    href: string
+    href?: string
     description?: string
+    items?: Array<{
+      title: string
+      href: string
+      description?: string
+    }>
   }>
 }
 
@@ -48,8 +53,13 @@ const menuSections: MenuSection[] = [
     icon: DollarSign,
     items: [
       { title: 'Revenue & Sales', href: '/financial/revenue' },
-      { title: 'Profitability & Margins', href: '/financial/profitability' },
-      { title: 'Prime Cost % (FIN_008)', href: '/financial/profitability/prime-cost' },
+      { 
+        title: 'Profitability & Margins', 
+        href: '/financial/profitability',
+        items: [
+          { title: 'Prime Cost % (FIN_008)', href: '/financial/profitability/prime-cost' },
+        ]
+      },
       { title: 'India-Specific Financial', href: '/financial/india-specific' },
     ],
   },
@@ -145,16 +155,24 @@ interface SidebarContentProps {
 
 function SidebarContent({ onItemClick }: SidebarContentProps) {
   const pathname = usePathname()
-  const { expandedSections, toggleSection } = useMenuState()
+  const { expandedSections, expandedSubSections, toggleSection, toggleSubSection } = useMenuState()
 
   const isActiveSection = (section: MenuSection) => {
     if (section.href) {
       return pathname === section.href
     }
-    return section.items?.some(item => pathname === item.href) || false
+    return section.items?.some(item => {
+      if (item.href && pathname === item.href) return true
+      return item.items?.some(subItem => pathname === subItem.href) || false
+    }) || false
   }
 
   const isActiveItem = (href: string) => pathname === href
+
+  const isActiveSubSection = (item: any) => {
+    if (item.href && pathname === item.href) return true
+    return item.items?.some((subItem: any) => pathname === subItem.href) || false
+  }
 
   return (
     <div className="flex flex-col h-full">
@@ -213,21 +231,71 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
               </CollapsibleTrigger>
               
               <CollapsibleContent className="ml-4 space-y-0.5 animate-accordion-down">
-                {section.items?.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={onItemClick}
-                    className={cn(
-                      'flex items-center py-1 px-2 ml-6 rounded-md text-xs font-normal transition-colors duration-300',
-                      isActiveItem(item.href)
-                        ? 'text-black dark:text-white bg-accent'
-                        : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
-                    )}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
+                {section.items?.map((item) => {
+                  const subSectionId = `${section.id}-${item.title.toLowerCase().replace(/\s+/g, '-')}`
+                  const isSubExpanded = expandedSubSections.includes(subSectionId)
+                  const isSubActive = isActiveSubSection(item)
+                  
+                  // If item has subitems, render as collapsible
+                  if (item.items) {
+                    return (
+                      <Collapsible key={subSectionId} open={isSubExpanded}>
+                        <CollapsibleTrigger
+                          onClick={() => toggleSubSection(subSectionId)}
+                          className={cn(
+                            'flex items-center justify-between w-full py-1 px-2 ml-6 rounded-md text-xs font-normal transition-colors duration-300',
+                            isSubActive
+                              ? 'text-black dark:text-white'
+                              : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                          )}
+                        >
+                          <span>{item.title}</span>
+                          <ChevronDown 
+                            className={cn(
+                              'h-3 w-3 transition-transform duration-300',
+                              isSubExpanded && 'rotate-180'
+                            )} 
+                          />
+                        </CollapsibleTrigger>
+                        
+                        <CollapsibleContent className="ml-4 space-y-0.5 animate-accordion-down">
+                          {item.items.map((subItem) => (
+                            <Link
+                              key={subItem.href}
+                              href={subItem.href}
+                              onClick={onItemClick}
+                              className={cn(
+                                'flex items-center py-1 px-2 ml-6 rounded-md text-xs font-normal transition-colors duration-300',
+                                isActiveItem(subItem.href)
+                                  ? 'text-black dark:text-white bg-accent'
+                                  : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                              )}
+                            >
+                              {subItem.title}
+                            </Link>
+                          ))}
+                        </CollapsibleContent>
+                      </Collapsible>
+                    )
+                  }
+                  
+                  // Regular item without subitems
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href!}
+                      onClick={onItemClick}
+                      className={cn(
+                        'flex items-center py-1 px-2 ml-6 rounded-md text-xs font-normal transition-colors duration-300',
+                        isActiveItem(item.href!)
+                          ? 'text-black dark:text-white bg-accent'
+                          : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                  )
+                })}
               </CollapsibleContent>
             </Collapsible>
           )
