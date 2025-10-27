@@ -103,20 +103,24 @@ export default function ProfitabilityAndMargins() {
             Breakeven Point Analysis by Location
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {['Gurugram Central', 'Sector 29', 'Cyber City'].map((location) => (
-              <div key={location} className="space-y-2">
-                <span className="text-xs font-normal text-gray-500">{location}</span>
+            {[
+              { name: 'The Potbelly (Chanakyapuri)', breakeven: '₹3,85,000', revenue: '₹4,85,000', margin: '+26.0%' },
+              { name: 'The Potbelly Divine (Gurugram)', breakeven: '₹3,15,000', revenue: '₹3,95,000', margin: '+25.4%' },
+              { name: 'The Potbelly Rooftop (Shahpur Jat)', breakeven: '₹3,05,000', revenue: '₹3,65,000', margin: '+19.7%' }
+            ].map((location) => (
+              <div key={location.name} className="space-y-2">
+                <span className="text-xs font-normal text-gray-500">{location.name}</span>
                 <div className="flex justify-between">
                   <span className="text-xs font-normal text-gray-500">Monthly Breakeven</span>
-                  <span className="text-xs font-normal text-black dark:text-white">₹1,85,000</span>
+                  <span className="text-xs font-normal text-black dark:text-white">{location.breakeven}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-xs font-normal text-gray-500">Current Revenue</span>
-                  <span className="text-xs font-normal text-green-600">₹2,08,000</span>
+                  <span className="text-xs font-normal text-green-600">{location.revenue}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-xs font-normal text-gray-500">Safety Margin</span>
-                  <span className="text-xs font-normal text-green-600">+12.4%</span>
+                  <span className="text-xs font-normal text-green-600">{location.margin}</span>
                 </div>
               </div>
             ))}

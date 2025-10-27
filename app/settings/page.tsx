@@ -77,7 +77,7 @@ export default function Settings() {
           <div className="space-y-3">
             {[
               { role: 'Chain Owner', users: 2, permissions: 'Full Access' },
-              { role: 'Location Manager', users: 6, permissions: 'Location-specific data' },
+              { role: 'Location Manager', users: 3, permissions: 'Location-specific data' },
               { role: 'Finance Team', users: 3, permissions: 'Financial metrics only' },
               { role: 'Operations', users: 4, permissions: 'Operational metrics only' }
             ].map((role) => (

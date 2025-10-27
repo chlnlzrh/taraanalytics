@@ -54,9 +54,9 @@ export default function Reports() {
               <label className="text-xs font-normal text-gray-500 block mb-1">Locations</label>
               <select className="w-full p-2 text-xs border rounded">
                 <option>All Locations</option>
-                <option>Gurugram Central</option>
-                <option>Sector 29</option>
-                <option>Cyber City</option>
+                <option>The Potbelly (Chanakyapuri)</option>
+                <option>The Potbelly Divine (Gurugram)</option>
+                <option>The Potbelly Rooftop (Shahpur Jat)</option>
               </select>
             </div>
 
