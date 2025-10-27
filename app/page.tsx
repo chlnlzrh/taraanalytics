@@ -58,13 +58,18 @@ export default function Dashboard() {
           Location Performance Overview
         </h2>
         <div className="space-y-2">
-          {['Gurugram Central', 'Sector 29', 'Cyber City', 'DLF Phase 1', 'Golf Course Road', 'MG Road'].map((location, index) => (
-            <div key={location} className="flex items-center justify-between p-2 rounded border">
-              <span className="text-xs font-normal text-gray-500">{location}</span>
+          {[
+            { name: 'The Potbelly (Chanakyapuri)', revenue: '₹4,85,000', status: 'green' },
+            { name: 'The Potbelly Divine (Gurugram)', revenue: '₹3,95,000', status: 'green' },
+            { name: 'The Potbelly Rooftop (Shahpur Jat)', revenue: '₹3,65,000', status: 'yellow' }
+          ].map((location, index) => (
+            <div key={location.name} className="flex items-center justify-between p-2 rounded border">
+              <span className="text-xs font-normal text-gray-500">{location.name}</span>
               <div className="flex items-center gap-4">
-                <span className="text-xs font-normal">₹2,08,000</span>
+                <span className="text-xs font-normal">{location.revenue}</span>
                 <div className={`w-2 h-2 rounded-full ${
-                  index < 2 ? 'bg-green-500' : index < 4 ? 'bg-yellow-500' : 'bg-red-500'
+                  location.status === 'green' ? 'bg-green-500' : 
+                  location.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500'
                 }`} />
               </div>
             </div>
@@ -78,16 +83,16 @@ export default function Dashboard() {
           Real-time Alerts & Anomalies
         </h2>
         <div className="space-y-2">
-          <div className="flex items-center gap-2 p-2 bg-red-50 dark:bg-red-900/20 rounded border border-red-200">
-            <div className="w-2 h-2 bg-red-500 rounded-full" />
-            <span className="text-xs font-normal text-red-700 dark:text-red-300">
-              Food waste at Cyber City location exceeded 8% threshold
+          <div className="flex items-center gap-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-200">
+            <div className="w-2 h-2 bg-yellow-500 rounded-full" />
+            <span className="text-xs font-normal text-yellow-700 dark:text-yellow-300">
+              Food waste at Shahpur Jat location: 6.2% (above 5% target)
             </span>
           </div>
           <div className="flex items-center gap-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-200">
             <div className="w-2 h-2 bg-yellow-500 rounded-full" />
             <span className="text-xs font-normal text-yellow-700 dark:text-yellow-300">
-              Labor cost variance detected at Golf Course Road (+3.2%)
+              Labor cost variance at Gurugram location: +2.8% from target
             </span>
           </div>
           <div className="flex items-center gap-2 p-2 bg-green-50 dark:bg-green-900/20 rounded border border-green-200">

@@ -13,12 +13,9 @@ export default function LocationPerformance() {
         </h2>
         <div className="space-y-3">
           {[
-            { location: 'Sector 29', primeCost: '54.2%', status: 'excellent' },
-            { location: 'Gurugram Central', primeCost: '55.8%', status: 'good' },
-            { location: 'DLF Phase 1', primeCost: '57.1%', status: 'good' },
-            { location: 'Golf Course Road', primeCost: '58.9%', status: 'warning' },
-            { location: 'Cyber City', primeCost: '59.4%', status: 'warning' },
-            { location: 'MG Road', primeCost: '61.2%', status: 'critical' }
+            { location: 'The Potbelly Divine (Gurugram)', primeCost: '54.8%', status: 'excellent' },
+            { location: 'The Potbelly (Chanakyapuri)', primeCost: '56.2%', status: 'good' },
+            { location: 'The Potbelly Rooftop (Shahpur Jat)', primeCost: '58.4%', status: 'warning' }
           ].map((location, index) => (
             <div key={location.location} className="flex items-center justify-between p-2 rounded border">
               <div className="flex items-center gap-3">
@@ -46,15 +43,15 @@ export default function LocationPerformance() {
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-xs font-normal text-gray-500">Chain Average</span>
-              <span className="text-xs font-normal text-black dark:text-white">₹2,08,000</span>
+              <span className="text-xs font-normal text-black dark:text-white">₹4,15,000</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-xs font-normal text-gray-500">Top Performer</span>
-              <span className="text-xs font-normal text-green-600">+18.4%</span>
+              <span className="text-xs font-normal text-gray-500">Top Performer (Chanakyapuri)</span>
+              <span className="text-xs font-normal text-green-600">+16.9%</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-xs font-normal text-gray-500">Lowest Performer</span>
-              <span className="text-xs font-normal text-red-600">-12.6%</span>
+              <span className="text-xs font-normal text-gray-500">Lowest Performer (Shahpur Jat)</span>
+              <span className="text-xs font-normal text-yellow-600">-12.0%</span>
             </div>
           </div>
         </div>

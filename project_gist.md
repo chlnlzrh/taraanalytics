@@ -1,7 +1,7 @@
-# Multi-Unit Restaurant Chain Analytics App - Project Gist
+# The Potbelly Restaurant Chain Analytics App - Project Gist
 
 ## Overview
-Building a comprehensive **analytics platform** for multi-unit restaurant chain operators (6+ locations) to track, monitor, and optimize operational performance across all restaurants using a structured KPI framework.
+Building a comprehensive **analytics platform** for The Potbelly restaurant chain (3 locations) to track, monitor, and optimize operational performance across all restaurants using a structured KPI framework.
 
 ## Target Users
 - **Chain Owners & CFOs**: Executive-level financial & comparative analytics
@@ -9,7 +9,12 @@ Building a comprehensive **analytics platform** for multi-unit restaurant chain 
 - **Finance Teams**: Accounting reconciliation, GST compliance, ERP sync
 
 ## Core Value Proposition
-Replace reactive crisis management with **data-driven decision-making** across all units. Implementation of disciplined KPI governance typically improves unit-level EBITDA margins by 200–400 basis points within 12 months.
+Replace reactive crisis management with **data-driven decision-making** across all 3 Potbelly locations. Implementation of disciplined KPI governance typically improves unit-level EBITDA margins by 200–400 basis points within 12 months.
+
+## Restaurant Locations
+1. **The Potbelly (Chanakyapuri)** - Flagship location in New Delhi
+2. **The Potbelly Divine (Gurugram)** - Premium location in Sector 15
+3. **The Potbelly Rooftop Cafe (Shahpur Jat)** - Rooftop dining in New Delhi
 
 ## Architecture
 
@@ -113,6 +118,6 @@ Replace reactive crisis management with **data-driven decision-making** across a
 ## Success Metrics
 - 15–20 core metrics tracked consistently across all units within 30 days
 - Red/Yellow/Green thresholds calibrated within 60 days
-- Location managers using daily metrics to drive operational decisions
-- CFO/Owner using monthly consolidated financials for strategic planning
-- Unit EBITDA margin improvement of 200–400 basis points within 12 months
+- Location managers at all 3 Potbelly locations using daily metrics to drive operational decisions
+- CFO/Owner using monthly consolidated financials for strategic planning across the chain
+- Unit EBITDA margin improvement of 200–400 basis points within 12 months across all 3 locations
