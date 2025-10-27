@@ -396,7 +396,7 @@ interface SidebarContentProps {
 
 function SidebarContent({ onItemClick }: SidebarContentProps) {
   const pathname = usePathname()
-  const { expandedSections, expandedSubSections, toggleSection, toggleSubSection } = useMenuState()
+  const { expandedSections, expandedSubSections, isCollapsed, toggleSection, toggleSubSection, setCollapsed } = useMenuState()
 
   const isActiveSection = (section: MenuSection) => {
     if (section.href) {
@@ -417,10 +417,19 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-6 border-b">
-        <h1 className="text-xs font-bold text-black dark:text-white">
-          TaraAnalytics
-        </h1>
+      <div className="p-6 border-b flex items-center justify-between">
+        {!isCollapsed && (
+          <h1 className="text-xs font-bold text-black dark:text-white">
+            TaraAnalytics
+          </h1>
+        )}
+        <button
+          onClick={() => setCollapsed(!isCollapsed)}
+          className="p-1 rounded-md hover:bg-accent transition-colors duration-200"
+        >
+          <Menu className="h-4 w-4 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300" />
+          <span className="sr-only">Toggle sidebar</span>
+        </button>
       </div>
       
       <nav className="flex-1 p-4 space-y-0.5 overflow-y-auto">
@@ -439,11 +448,13 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
                   'flex items-center gap-3 py-1 px-2 rounded-md text-xs font-normal transition-colors duration-300',
                   isActive
                     ? 'text-black dark:text-white bg-accent'
-                    : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                    : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300',
+                  isCollapsed && 'justify-center'
                 )}
+                title={isCollapsed ? section.title : undefined}
               >
                 <Icon className="h-4 w-4 flex-shrink-0" />
-                <span>{section.title}</span>
+                {!isCollapsed && <span>{section.title}</span>}
               </Link>
             )
           }
@@ -451,28 +462,33 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
           return (
             <Collapsible key={section.id} open={isExpanded}>
               <CollapsibleTrigger
-                onClick={() => toggleSection(section.id)}
+                onClick={() => !isCollapsed && toggleSection(section.id)}
                 className={cn(
                   'flex items-center justify-between w-full py-1 px-2 rounded-md text-xs font-normal transition-colors duration-300',
                   isActive
                     ? 'text-black dark:text-white'
-                    : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                    : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300',
+                  isCollapsed && 'justify-center'
                 )}
+                title={isCollapsed ? section.title : undefined}
               >
-                <div className="flex items-center gap-3">
+                <div className={cn("flex items-center gap-3", isCollapsed && "justify-center")}>
                   <Icon className="h-4 w-4 flex-shrink-0" />
-                  <span>{section.title}</span>
+                  {!isCollapsed && <span>{section.title}</span>}
                 </div>
-                <ChevronDown 
-                  className={cn(
-                    'h-3 w-3 transition-transform duration-300',
-                    isExpanded && 'rotate-180'
-                  )} 
-                />
+                {!isCollapsed && (
+                  <ChevronDown 
+                    className={cn(
+                      'h-3 w-3 transition-transform duration-300',
+                      isExpanded && 'rotate-180'
+                    )} 
+                  />
+                )}
               </CollapsibleTrigger>
               
-              <CollapsibleContent className="ml-4 space-y-0.5 animate-accordion-down">
-                {section.items?.map((item) => {
+              {!isCollapsed && (
+                <CollapsibleContent className="ml-4 space-y-0.5 animate-accordion-down">
+                  {section.items?.map((item) => {
                   const subSectionId = `${section.id}-${item.title.toLowerCase().replace(/\s+/g, '-')}`
                   const isSubExpanded = expandedSubSections.includes(subSectionId)
                   const isSubActive = isActiveSubSection(item)
@@ -536,8 +552,9 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
                       {item.title}
                     </Link>
                   )
-                })}
-              </CollapsibleContent>
+                  })}
+                </CollapsibleContent>
+              )}
             </Collapsible>
           )
         })}
@@ -547,10 +564,15 @@ function SidebarContent({ onItemClick }: SidebarContentProps) {
 }
 
 export function Sidebar() {
+  const { isCollapsed } = useMenuState()
+  
   return (
     <>
       {/* Desktop Sidebar */}
-      <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 bg-background border-r">
+      <div className={cn(
+        "hidden md:flex md:flex-col md:fixed md:inset-y-0 bg-background border-r transition-all duration-300",
+        isCollapsed ? "md:w-16" : "md:w-64"
+      )}>
         <SidebarContent />
       </div>
 
