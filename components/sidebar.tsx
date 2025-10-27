@@ -49,6 +49,7 @@ const menuSections: MenuSection[] = [
     items: [
       { title: 'Revenue & Sales', href: '/financial/revenue' },
       { title: 'Profitability & Margins', href: '/financial/profitability' },
+      { title: 'Prime Cost % (FIN_008)', href: '/financial/profitability/prime-cost' },
       { title: 'India-Specific Financial', href: '/financial/india-specific' },
     ],
   },
@@ -135,14 +136,6 @@ const menuSections: MenuSection[] = [
     title: 'Settings',
     icon: Settings,
     href: '/settings',
-  },
-  {
-    id: 'kpi',
-    title: 'KPI Deep Dive',
-    icon: TrendingUp,
-    items: [
-      { title: 'Prime Cost % (FIN_008)', href: '/kpi/prime-cost' },
-    ],
   },
 ]
 
