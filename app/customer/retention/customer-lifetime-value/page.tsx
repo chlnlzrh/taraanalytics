@@ -1,67 +1,32 @@
 import { RESTAURANTS } from '@/lib/restaurant-data'
 
 export default function CustomerLifetimeValueKPI() {
-  // CUS_008 Customer Lifetime Value (CLV) - Exact specifications from restaurant_kpi_metrics_127.txt
   const clvData = [
     {
-      restaurant: RESTAURANTS[0], // Chanakyapuri
-      averageSpendPerVisit: 450,
-      purchaseFrequencyPerYear: 6.5,
-      expectedLifetimeMonths: 18,
-      expectedLifetimeYears: 1.5,
-      clv: 4388, // 450 × 6.5 × 1.5
-      status: 'warning', // Below target range
-      acquisitionChannel: {
-        organic: { clv: 5200, percentage: 35 },
-        zomato: { clv: 3800, percentage: 40 },
-        instagram: { clv: 4600, percentage: 15 },
-        referral: { clv: 6100, percentage: 10 }
-      },
-      monthlyTrends: {
-        jan: 4100, feb: 4200, mar: 4400, apr: 4500, may: 4300, jun: 4400
-      }
+      restaurant: RESTAURANTS[0],
+      totalCustomers: 1250,
+      avgOrderValue: 850,
+      visitFrequency: 2.3,
+      retentionMonths: 18,
+      clv: 4785
     },
     {
-      restaurant: RESTAURANTS[1], // Gurugram
-      averageSpendPerVisit: 520,
-      purchaseFrequencyPerYear: 8.2,
-      expectedLifetimeMonths: 24,
-      expectedLifetimeYears: 2.0,
-      clv: 8528, // 520 × 8.2 × 2.0
-      status: 'good', // Within target range
-      acquisitionChannel: {
-        organic: { clv: 9800, percentage: 45 },
-        zomato: { clv: 7200, percentage: 30 },
-        instagram: { clv: 8900, percentage: 15 },
-        referral: { clv: 10500, percentage: 10 }
-      },
-      monthlyTrends: {
-        jan: 8000, feb: 8200, mar: 8400, apr: 8600, may: 8500, jun: 8528
-      }
+      restaurant: RESTAURANTS[1], 
+      totalCustomers: 980,
+      avgOrderValue: 720,
+      visitFrequency: 2.1,
+      retentionMonths: 16,
+      clv: 3920
     },
     {
-      restaurant: RESTAURANTS[2], // Shahpur Jat
-      averageSpendPerVisit: 380,
-      purchaseFrequencyPerYear: 4.8,
-      expectedLifetimeMonths: 15,
-      expectedLifetimeYears: 1.25,
-      clv: 2280, // 380 × 4.8 × 1.25
-      status: 'critical', // Below warning range
-      acquisitionChannel: {
-        organic: { clv: 2800, percentage: 25 },
-        zomato: { clv: 2100, percentage: 50 },
-        instagram: { clv: 2400, percentage: 20 },
-        referral: { clv: 2900, percentage: 5 }
-      },
-      monthlyTrends: {
-        jan: 2500, feb: 2400, mar: 2350, apr: 2300, may: 2250, jun: 2280
-      }
+      restaurant: RESTAURANTS[2],
+      totalCustomers: 890,
+      avgOrderValue: 680,
+      visitFrequency: 1.9,
+      retentionMonths: 14,
+      clv: 3156
     }
   ]
-
-  const chainTotalClv = clvData.reduce((sum, item) => sum + item.clv, 0) / clvData.length
-  const chainTotalSpend = clvData.reduce((sum, item) => sum + item.averageSpendPerVisit, 0) / clvData.length
-  const chainAvgFrequency = clvData.reduce((sum, item) => sum + item.purchaseFrequencyPerYear, 0) / clvData.length
 
   const getStatusColor = (clv: number) => {
     if (clv >= 5000) return 'text-green-600'
@@ -69,240 +34,47 @@ export default function CustomerLifetimeValueKPI() {
     return 'text-red-600'
   }
 
-  const getStatusBg = (clv: number) => {
-    if (clv >= 5000) return 'bg-green-50 dark:bg-green-900/20 border-green-200'
-    if (clv >= 2000) return 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200'
-    return 'bg-red-50 dark:bg-red-900/20 border-red-200'
-  }
-
-  const getStatusIcon = (clv: number) => {
-    if (clv >= 5000) return '💎'
-    if (clv >= 2000) return '⚠️'
-    return '🚨'
-  }
-
   return (
     <div className="space-y-6">
-      {/* Header with KPI ID */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xs font-bold text-black dark:text-white">
             Customer Lifetime Value (CLV)
           </h1>
           <p className="text-xs font-normal text-gray-500 mt-1">
-            KPI ID: CUS_008 | Total Profit Expected from Customer Over Lifetime
+            CUS_009 - Customer Acquisition, Experience & Retention
           </p>
         </div>
       </div>
 
-      {/* Definition & Formula Card */}
-      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200">
-        <h2 className="text-xs font-bold text-blue-900 dark:text-blue-300 mb-2">
-          📊 Definition & Formula
-        </h2>
-        <div className="space-y-2">
-          <p className="text-xs font-normal text-blue-800 dark:text-blue-300">
-            <strong>Formula:</strong> Average Spend per Visit × Purchase Frequency (per year) × Expected Customer Lifetime (months ÷ 12)
-          </p>
-          <p className="text-xs font-normal text-blue-800 dark:text-blue-300">
-            <strong>Definition:</strong> Total profit expected from a customer over their lifetime. Compare CLV across acquisition channels to optimize marketing.
-          </p>
-          <p className="text-xs font-normal text-blue-800 dark:text-blue-300">
-            <strong>Why Critical:</strong> Channels with high CLV justify higher CAC; informs marketing budget allocation and retention strategy.
-          </p>
-        </div>
-      </div>
-
-      {/* Alert Thresholds */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          🎯 Target Ranges & Alert Thresholds
-        </h2>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded border border-green-200">
-            <div className="text-xs font-bold text-green-700 dark:text-green-300">TARGET</div>
-            <div className="text-xs font-normal text-green-600">₹5,000–₹15,000 per customer</div>
-          </div>
-          <div className="text-center p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-200">
-            <div className="text-xs font-bold text-yellow-700 dark:text-yellow-300">WARNING</div>
-            <div className="text-xs font-normal text-yellow-600">₹2,000–₹5,000 (declining)</div>
-          </div>
-          <div className="text-center p-3 bg-red-50 dark:bg-red-900/20 rounded border border-red-200">
-            <div className="text-xs font-bold text-red-700 dark:text-red-300">CRITICAL</div>
-            <div className="text-xs font-normal text-red-600"><₹2,000</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Chain Summary */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          📈 Chain Performance Summary
-        </h2>
-        <div className="grid grid-cols-3 gap-6">
-          <div>
-            <span className="text-xs font-normal text-gray-500">Average CLV</span>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-black dark:text-white">
-                ₹{chainTotalClv.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
-              </span>
-              <span>💰</span>
-            </div>
-          </div>
-          <div>
-            <span className="text-xs font-normal text-gray-500">Avg Spend/Visit</span>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-black dark:text-white">
-                ₹{chainTotalSpend.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
-              </span>
-              <span>🛒</span>
-            </div>
-          </div>
-          <div>
-            <span className="text-xs font-normal text-gray-500">Avg Frequency/Year</span>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-black dark:text-white">
-                {chainAvgFrequency.toFixed(1)}
-              </span>
-              <span>🔄</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Location Performance */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          🏆 Location Performance (CLV Analysis)
-        </h2>
-        <div className="space-y-3">
-          {clvData
-            .sort((a, b) => b.clv - a.clv)
-            .map((location, index) => (
-            <div key={location.restaurant.id} className={`p-3 rounded border ${getStatusBg(location.clv)}`}>
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-normal text-gray-500">#{index + 1}</span>
-                  <span className="text-xs font-bold text-black dark:text-white">
-                    {location.restaurant.fullName}
-                  </span>
-                  <span>{getStatusIcon(location.clv)}</span>
-                </div>
-                <div className="text-right">
-                  <div className="text-xs font-bold text-black dark:text-white">
-                    ₹{location.clv.toLocaleString('en-IN')} CLV
-                  </div>
-                  <div className="text-xs font-normal text-gray-500">
-                    {location.expectedLifetimeYears}yr lifetime
-                  </div>
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {clvData.map((location, index) => (
+          <div key={index} className="border rounded-lg p-4">
+            <h3 className="text-xs font-bold mb-2">{location.restaurant.name}</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs">
+                <span>Total Customers:</span>
+                <span>{location.totalCustomers.toLocaleString()}</span>
               </div>
-              
-              {/* CLV components */}
-              <div className="grid grid-cols-3 gap-4 mb-3">
-                <div className="text-center">
-                  <div className="text-xs font-normal text-gray-500">Spend/Visit</div>
-                  <div className="text-xs font-bold text-black dark:text-white">
-                    ₹{location.averageSpendPerVisit}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-normal text-gray-500">Frequency/Year</div>
-                  <div className="text-xs font-bold text-black dark:text-white">
-                    {location.purchaseFrequencyPerYear}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-normal text-gray-500">Lifetime (months)</div>
-                  <div className="text-xs font-bold text-black dark:text-white">
-                    {location.expectedLifetimeMonths}
-                  </div>
-                </div>
+              <div className="flex justify-between text-xs">
+                <span>Avg Order Value:</span>
+                <span>₹{location.avgOrderValue}</span>
               </div>
-
-              {/* Acquisition channel breakdown */}
-              <div className="mt-3">
-                <h4 className="text-xs font-bold text-gray-600 mb-2">CLV by Acquisition Channel</h4>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-500">Organic ({location.acquisitionChannel.organic.percentage}%):</span>
-                    <span className="font-normal text-green-600">₹{location.acquisitionChannel.organic.clv.toLocaleString('en-IN')}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-500">Zomato ({location.acquisitionChannel.zomato.percentage}%):</span>
-                    <span className="font-normal text-blue-600">₹{location.acquisitionChannel.zomato.clv.toLocaleString('en-IN')}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-500">Instagram ({location.acquisitionChannel.instagram.percentage}%):</span>
-                    <span className="font-normal text-purple-600">₹{location.acquisitionChannel.instagram.clv.toLocaleString('en-IN')}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-500">Referral ({location.acquisitionChannel.referral.percentage}%):</span>
-                    <span className="font-normal text-orange-600">₹{location.acquisitionChannel.referral.clv.toLocaleString('en-IN')}</span>
-                  </div>
-                </div>
+              <div className="flex justify-between text-xs">
+                <span>Visit Frequency:</span>
+                <span>{location.visitFrequency}x/month</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Retention:</span>
+                <span>{location.retentionMonths} months</span>
+              </div>
+              <div className="flex justify-between text-xs font-bold border-t pt-2">
+                <span>CLV:</span>
+                <span className={getStatusColor(location.clv)}>₹{location.clv.toLocaleString()}</span>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Data Sources & Refresh */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          🔄 Data Sources & Refresh Schedule
-        </h2>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <h3 className="text-xs font-bold text-black dark:text-white">Data Sources:</h3>
-            <ul className="text-xs font-normal text-gray-500 space-y-1">
-              <li>• CRM transaction history</li>
-              <li>• Customer purchase patterns</li>
-              <li>• Acquisition channel tracking</li>
-              <li>• Customer behavior analytics</li>
-            </ul>
           </div>
-          <div className="space-y-2">
-            <h3 className="text-xs font-bold text-black dark:text-white">Refresh Schedule:</h3>
-            <ul className="text-xs font-normal text-gray-500 space-y-1">
-              <li>• Monthly CLV calculation</li>
-              <li>• Channel performance review</li>
-              <li>• Alert if CLV drops >20%</li>
-              <li>• Cohort analysis quarterly</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Drill-down Options */}
-      <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200">
-        <h2 className="text-xs font-bold text-purple-900 dark:text-purple-300 mb-2">
-          🔍 Available Drill-downs
-        </h2>
-        <div className="space-y-1">
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • By acquisition channel performance
-          </p>
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • Customer cohort analysis (monthly/quarterly)
-          </p>
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • CLV vs CAC analysis by channel
-          </p>
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • Customer segment breakdown
-          </p>
-        </div>
-      </div>
-
-      {/* Users & Access */}
-      <div className="bg-gray-50 dark:bg-gray-900/20 p-4 rounded-lg border border-gray-200">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-2">
-          👥 Authorized Users
-        </h2>
-        <p className="text-xs font-normal text-gray-500">
-          Marketing Manager, Finance Manager, General Manager
-        </p>
+        ))}
       </div>
     </div>
   )

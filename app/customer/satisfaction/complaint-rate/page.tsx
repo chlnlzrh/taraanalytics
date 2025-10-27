@@ -1,61 +1,50 @@
 import { RESTAURANTS } from '@/lib/restaurant-data'
 
 export default function ComplaintRateKPI() {
-  // CUS_012 Complaint Rate - Exact specifications from restaurant_kpi_metrics_127.txt
   const complaintData = [
     {
-      restaurant: RESTAURANTS[0], // Chanakyapuri
-      totalCovers: 2800,
-      totalComplaints: 18,
-      complaintsPer100Covers: 0.64,
-      status: 'good', // Below 1 per 100 covers
-      complaintsByCategory: {
-        foodQuality: 8,
+      restaurant: RESTAURANTS[0],
+      totalOrders: 2450,
+      complaints: 18,
+      complaintRate: 0.73,
+      categories: {
+        food: 8,
         service: 6,
-        cleanliness: 3,
-        pricing: 1
+        delivery: 3,
+        billing: 1
       },
-      monthlyTrend: [0.5, 0.7, 0.8, 0.6, 0.5, 0.64],
-      resolutionRate: 94,
-      avgResolutionTime: 3.2
+      resolved: 16,
+      resolutionTime: 2.3
     },
     {
-      restaurant: RESTAURANTS[1], // Gurugram
-      totalCovers: 3200,
-      totalComplaints: 35,
-      complaintsPer100Covers: 1.09,
-      status: 'warning', // Between 1-2 per 100 covers
-      complaintsByCategory: {
-        foodQuality: 15,
-        service: 12,
-        cleanliness: 5,
-        pricing: 3
+      restaurant: RESTAURANTS[1],
+      totalOrders: 1980,
+      complaints: 28,
+      complaintRate: 1.41,
+      categories: {
+        food: 12,
+        service: 9,
+        delivery: 5,
+        billing: 2
       },
-      monthlyTrend: [0.8, 1.1, 1.3, 1.2, 1.0, 1.09],
-      resolutionRate: 89,
-      avgResolutionTime: 4.8
+      resolved: 25,
+      resolutionTime: 3.1
     },
     {
-      restaurant: RESTAURANTS[2], // Shahpur Jat
-      totalCovers: 2400,
-      totalComplaints: 52,
-      complaintsPer100Covers: 2.17,
-      status: 'critical', // Above 2 per 100 covers
-      complaintsByCategory: {
-        foodQuality: 22,
-        service: 18,
-        cleanliness: 8,
-        pricing: 4
+      restaurant: RESTAURANTS[2],
+      totalOrders: 1720,
+      complaints: 35,
+      complaintRate: 2.03,
+      categories: {
+        food: 15,
+        service: 11,
+        delivery: 7,
+        billing: 2
       },
-      monthlyTrend: [1.8, 2.1, 2.5, 2.3, 2.2, 2.17],
-      resolutionRate: 85,
-      avgResolutionTime: 6.1
+      resolved: 29,
+      resolutionTime: 4.2
     }
   ]
-
-  const chainTotalCovers = complaintData.reduce((sum, item) => sum + item.totalCovers, 0)
-  const chainTotalComplaints = complaintData.reduce((sum, item) => sum + item.totalComplaints, 0)
-  const chainComplaintRate = (chainTotalComplaints / chainTotalCovers) * 100
 
   const getStatusColor = (rate: number) => {
     if (rate < 1) return 'text-green-600'
@@ -63,298 +52,59 @@ export default function ComplaintRateKPI() {
     return 'text-red-600'
   }
 
-  const getStatusBg = (rate: number) => {
-    if (rate < 1) return 'bg-green-50 dark:bg-green-900/20 border-green-200'
-    if (rate <= 2) return 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200'
-    return 'bg-red-50 dark:bg-red-900/20 border-red-200'
-  }
-
-  const getStatusIcon = (rate: number) => {
-    if (rate < 1) return '✅'
-    if (rate <= 2) return '⚠️'
-    return '🚨'
-  }
-
   return (
     <div className="space-y-6">
-      {/* Header with KPI ID */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xs font-bold text-black dark:text-white">
-            Complaint Rate
+            Complaint Rate %
           </h1>
           <p className="text-xs font-normal text-gray-500 mt-1">
-            KPI ID: CUS_012 | Complaints per 100 Customers
+            CUS_012 - Customer Acquisition, Experience & Retention
           </p>
         </div>
       </div>
 
-      {/* Definition & Formula Card */}
-      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200">
-        <h2 className="text-xs font-bold text-blue-900 dark:text-blue-300 mb-2">
-          📊 Definition & Formula
-        </h2>
-        <div className="space-y-2">
-          <p className="text-xs font-normal text-blue-800 dark:text-blue-300">
-            <strong>Formula:</strong> (Number of complaints ÷ 100 covers) × 100
-          </p>
-          <p className="text-xs font-normal text-blue-800 dark:text-blue-300">
-            <strong>Definition:</strong> Complaints per 100 customers. Track by category (food quality, service, cleanliness, pricing).
-          </p>
-          <p className="text-xs font-normal text-blue-800 dark:text-blue-300">
-            <strong>Why Critical:</strong> >2 per 100 covers warrants investigation; indicates service or quality degradation.
-          </p>
-        </div>
-      </div>
-
-      {/* Alert Thresholds */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          🎯 Target Ranges & Alert Thresholds
-        </h2>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded border border-green-200">
-            <div className="text-xs font-bold text-green-700 dark:text-green-300">TARGET</div>
-            <div className="text-xs font-normal text-green-600"><1 per 100 covers</div>
-          </div>
-          <div className="text-center p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-200">
-            <div className="text-xs font-bold text-yellow-700 dark:text-yellow-300">WARNING</div>
-            <div className="text-xs font-normal text-yellow-600">1–2 per 100 covers</div>
-          </div>
-          <div className="text-center p-3 bg-red-50 dark:bg-red-900/20 rounded border border-red-200">
-            <div className="text-xs font-bold text-red-700 dark:text-red-300">CRITICAL</div>
-            <div className="text-xs font-normal text-red-600">>2 per 100 covers</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Chain Summary */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          📈 Chain Performance Summary
-        </h2>
-        <div className="grid grid-cols-3 gap-6">
-          <div>
-            <span className="text-xs font-normal text-gray-500">Total Covers</span>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-black dark:text-white">
-                {chainTotalCovers.toLocaleString('en-IN')}
-              </span>
-              <span>👥</span>
-            </div>
-          </div>
-          <div>
-            <span className="text-xs font-normal text-gray-500">Total Complaints</span>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-black dark:text-white">
-                {chainTotalComplaints}
-              </span>
-              <span>📝</span>
-            </div>
-          </div>
-          <div>
-            <span className="text-xs font-normal text-gray-500">Chain Complaint Rate</span>
-            <div className="flex items-center gap-2">
-              <span className={`text-xs font-bold ${getStatusColor(chainComplaintRate)}`}>
-                {chainComplaintRate.toFixed(2)} per 100
-              </span>
-              <span>{getStatusIcon(chainComplaintRate)}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Location Performance */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          🏆 Location Performance (Complaint Analysis)
-        </h2>
-        <div className="space-y-3">
-          {complaintData
-            .sort((a, b) => a.complaintsPer100Covers - b.complaintsPer100Covers)
-            .map((location, index) => (
-            <div key={location.restaurant.id} className={`p-3 rounded border ${getStatusBg(location.complaintsPer100Covers)}`}>
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-normal text-gray-500">#{index + 1}</span>
-                  <span className="text-xs font-bold text-black dark:text-white">
-                    {location.restaurant.fullName}
-                  </span>
-                  <span>{getStatusIcon(location.complaintsPer100Covers)}</span>
-                </div>
-                <div className="text-right">
-                  <div className="text-xs font-bold text-black dark:text-white">
-                    {location.complaintsPer100Covers.toFixed(2)} per 100 covers
-                  </div>
-                  <div className="text-xs font-normal text-gray-500">
-                    {location.totalComplaints} of {location.totalCovers} covers
-                  </div>
-                </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {complaintData.map((location, index) => (
+          <div key={index} className="border rounded-lg p-4">
+            <h3 className="text-xs font-bold mb-2">{location.restaurant.name}</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs">
+                <span>Total Orders:</span>
+                <span>{location.totalOrders.toLocaleString()}</span>
               </div>
-              
-              {/* Complaint breakdown by category */}
-              <div className="grid grid-cols-4 gap-4 mb-3">
-                <div className="text-center">
-                  <div className="text-xs font-normal text-gray-500">Food Quality</div>
-                  <div className="text-xs font-bold text-red-600">
-                    {location.complaintsByCategory.foodQuality}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-normal text-gray-500">Service</div>
-                  <div className="text-xs font-bold text-orange-600">
-                    {location.complaintsByCategory.service}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-normal text-gray-500">Cleanliness</div>
-                  <div className="text-xs font-bold text-yellow-600">
-                    {location.complaintsByCategory.cleanliness}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xs font-normal text-gray-500">Pricing</div>
-                  <div className="text-xs font-bold text-blue-600">
-                    {location.complaintsByCategory.pricing}
-                  </div>
-                </div>
+              <div className="flex justify-between text-xs">
+                <span>Total Complaints:</span>
+                <span>{location.complaints}</span>
               </div>
-
-              {/* Resolution metrics */}
-              <div className="mt-3">
-                <h4 className="text-xs font-bold text-gray-600 mb-2">Resolution Performance</h4>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-500">Resolution Rate:</span>
-                    <span className="font-normal text-green-600">{location.resolutionRate}%</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-500">Avg Resolution Time:</span>
-                    <span className="font-normal text-blue-600">{location.avgResolutionTime}h</span>
-                  </div>
-                </div>
+              <div className="flex justify-between text-xs">
+                <span>Food Issues:</span>
+                <span>{location.categories.food}</span>
               </div>
-
-              {/* Monthly trend indicators */}
-              <div className="mt-3">
-                <h4 className="text-xs font-bold text-gray-600 mb-2">6-Month Trend</h4>
-                <div className="flex gap-2">
-                  {location.monthlyTrend.map((rate, idx) => (
-                    <div key={idx} className="flex-1 text-center">
-                      <div className="text-xs font-normal text-gray-400">M{idx+1}</div>
-                      <div className={`text-xs font-bold ${getStatusColor(rate)}`}>
-                        {rate.toFixed(1)}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <div className="flex justify-between text-xs">
+                <span>Service Issues:</span>
+                <span>{location.categories.service}</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Delivery Issues:</span>
+                <span>{location.categories.delivery}</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Resolved:</span>
+                <span>{location.resolved}/{location.complaints}</span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span>Avg Resolution:</span>
+                <span>{location.resolutionTime} hours</span>
+              </div>
+              <div className="flex justify-between text-xs font-bold border-t pt-2">
+                <span>Complaint Rate:</span>
+                <span className={getStatusColor(location.complaintRate)}>{location.complaintRate}%</span>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Category Analysis */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          📊 Chain-wide Complaint Categories
-        </h2>
-        <div className="grid grid-cols-4 gap-4">
-          <div className="text-center p-3 bg-red-50 dark:bg-red-900/20 rounded border border-red-200">
-            <div className="text-xs font-bold text-red-700 dark:text-red-300">Food Quality</div>
-            <div className="text-xs font-normal text-red-600">
-              {complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.foodQuality, 0)} complaints
-            </div>
-            <div className="text-xs font-normal text-red-500">
-              {((complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.foodQuality, 0) / chainTotalComplaints) * 100).toFixed(1)}%
-            </div>
           </div>
-          <div className="text-center p-3 bg-orange-50 dark:bg-orange-900/20 rounded border border-orange-200">
-            <div className="text-xs font-bold text-orange-700 dark:text-orange-300">Service</div>
-            <div className="text-xs font-normal text-orange-600">
-              {complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.service, 0)} complaints
-            </div>
-            <div className="text-xs font-normal text-orange-500">
-              {((complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.service, 0) / chainTotalComplaints) * 100).toFixed(1)}%
-            </div>
-          </div>
-          <div className="text-center p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-200">
-            <div className="text-xs font-bold text-yellow-700 dark:text-yellow-300">Cleanliness</div>
-            <div className="text-xs font-normal text-yellow-600">
-              {complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.cleanliness, 0)} complaints
-            </div>
-            <div className="text-xs font-normal text-yellow-500">
-              {((complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.cleanliness, 0) / chainTotalComplaints) * 100).toFixed(1)}%
-            </div>
-          </div>
-          <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200">
-            <div className="text-xs font-bold text-blue-700 dark:text-blue-300">Pricing</div>
-            <div className="text-xs font-normal text-blue-600">
-              {complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.pricing, 0)} complaints
-            </div>
-            <div className="text-xs font-normal text-blue-500">
-              {((complaintData.reduce((sum, loc) => sum + loc.complaintsByCategory.pricing, 0) / chainTotalComplaints) * 100).toFixed(1)}%
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Data Sources & Refresh */}
-      <div className="bg-card p-4 rounded-lg border">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-4">
-          🔄 Data Sources & Refresh Schedule
-        </h2>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <h3 className="text-xs font-bold text-black dark:text-white">Data Sources:</h3>
-            <ul className="text-xs font-normal text-gray-500 space-y-1">
-              <li>• Customer feedback forms</li>
-              <li>• Online reviews (Zomato, Google)</li>
-              <li>• Staff incident reports</li>
-              <li>• Direct customer complaints</li>
-            </ul>
-          </div>
-          <div className="space-y-2">
-            <h3 className="text-xs font-bold text-black dark:text-white">Refresh Schedule:</h3>
-            <ul className="text-xs font-normal text-gray-500 space-y-1">
-              <li>• Daily complaint tracking</li>
-              <li>• Weekly category analysis</li>
-              <li>• Alert if >2 per 100 covers</li>
-              <li>• Monthly trend review</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Drill-down Options */}
-      <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200">
-        <h2 className="text-xs font-bold text-purple-900 dark:text-purple-300 mb-2">
-          🔍 Available Drill-downs
-        </h2>
-        <div className="space-y-1">
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • By complaint category breakdown
-          </p>
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • By shift timing analysis
-          </p>
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • Resolution time vs satisfaction correlation
-          </p>
-          <p className="text-xs font-normal text-purple-800 dark:text-purple-300">
-            • Staff training impact analysis
-          </p>
-        </div>
-      </div>
-
-      {/* Users & Access */}
-      <div className="bg-gray-50 dark:bg-gray-900/20 p-4 rounded-lg border border-gray-200">
-        <h2 className="text-xs font-bold text-black dark:text-white mb-2">
-          👥 Authorized Users
-        </h2>
-        <p className="text-xs font-normal text-gray-500">
-          Manager, Operations Manager, Customer Service Manager
-        </p>
+        ))}
       </div>
     </div>
   )
