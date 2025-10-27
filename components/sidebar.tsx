@@ -150,7 +150,7 @@ const menuSections: MenuSection[] = [
         items: [
           { title: 'Customer Retention Rate (CUS_005)', href: '/customer/retention/retention-rate' },
           { title: 'Repeat Customer Rate (CUS_006)', href: '/customer/retention/repeat-rate' },
-          { title: 'Loyalty Program Participation (CUS_007)', href: '/customer/retention/loyalty-participation' },
+          { title: 'Loyalty Program Participation (CUS_007)', href: '/customer/retention/loyalty-program-participation' },
           { title: 'Customer Lifetime Value (CUS_008)', href: '/customer/retention/clv' },
         ]
       },
