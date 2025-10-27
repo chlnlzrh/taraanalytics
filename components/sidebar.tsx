@@ -136,6 +136,14 @@ const menuSections: MenuSection[] = [
     icon: Settings,
     href: '/settings',
   },
+  {
+    id: 'kpi',
+    title: 'KPI Deep Dive',
+    icon: TrendingUp,
+    items: [
+      { title: 'Prime Cost % (FIN_008)', href: '/kpi/prime-cost' },
+    ],
+  },
 ]
 
 interface SidebarContentProps {
