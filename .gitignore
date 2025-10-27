@@ -44,3 +44,10 @@ next-env.d.ts
 logs
 *.log
 .vercel
+
+# Images and screenshots
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
