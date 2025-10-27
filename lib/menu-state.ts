@@ -19,11 +19,26 @@ export const useMenuState = create<MenuState>()(
       expandedSubSections: [],
       isCollapsed: false,
       toggleSection: (sectionId: string) =>
-        set((state) => ({
-          expandedSections: state.expandedSections.includes(sectionId)
-            ? state.expandedSections.filter((id) => id !== sectionId)
-            : [...state.expandedSections, sectionId],
-        })),
+        set((state) => {
+          const isCurrentlyExpanded = state.expandedSections.includes(sectionId)
+          
+          if (isCurrentlyExpanded) {
+            // Collapsing section - also collapse all its subsections
+            return {
+              expandedSections: state.expandedSections.filter((id) => id !== sectionId),
+              expandedSubSections: state.expandedSubSections.filter((id) => !id.startsWith(sectionId + '-'))
+            }
+          } else {
+            // Expanding section - auto-expand first subsection
+            const firstSubSectionId = `${sectionId}-location-performance` // For comparative analytics
+            return {
+              expandedSections: [...state.expandedSections, sectionId],
+              expandedSubSections: sectionId === 'comparative' 
+                ? [...state.expandedSubSections, firstSubSectionId]
+                : state.expandedSubSections
+            }
+          }
+        }),
       toggleSubSection: (subSectionId: string) =>
         set((state) => ({
           expandedSubSections: state.expandedSubSections.includes(subSectionId)

@@ -55,10 +55,10 @@ const menuSections: MenuSection[] = [
       { 
         title: 'Revenue & Sales', 
         items: [
-          { title: 'Total Daily Revenue (FIN_001)', href: '/financial/revenue/daily-revenue' },
-          { title: 'Same-Store Sales Growth (FIN_002)', href: '/financial/revenue/sssg' },
-          { title: 'Revenue per Available Seat Hour (FIN_003)', href: '/financial/revenue/revpash' },
-          { title: 'Average Check Size (FIN_004)', href: '/financial/revenue/average-check' },
+          { title: 'Total Daily Revenue (FIN_001)', href: '/financial/revenue/total-daily-revenue' },
+          { title: 'Same-Store Sales Growth (FIN_002)', href: '/financial/revenue/same-store-sales-growth' },
+          { title: 'Revenue per Available Seat Hour (FIN_003)', href: '/financial/revenue/revenue-per-seat-hour' },
+          { title: 'Average Check Size (FIN_004)', href: '/financial/revenue/average-check-size' },
         ]
       },
       { 
@@ -178,40 +178,40 @@ const menuSections: MenuSection[] = [
         title: 'Cost Metrics', 
         
         items: [
-          { title: 'Food Cost % (FOD_001)', href: '/food-cost/metrics/food-cost' },
-          { title: 'Beverage Cost % (FOD_002)', href: '/food-cost/metrics/beverage-cost' },
-          { title: 'Prime Cost % (FOD_003)', href: '/food-cost/metrics/prime-cost' },
-          { title: 'Cost of Goods Sold (FOD_004)', href: '/food-cost/metrics/cogs' },
+          { title: 'Food Cost % (FOD_001)', href: '/food-cost/cost-metrics/food-cost-percentage' },
+          { title: 'Beverage Cost % (FOD_002)', href: '/food-cost/cost-metrics/beverage-cost-percentage' },
+          { title: 'Prime Cost % (FOD_003)', href: '/food-cost/cost-metrics/prime-cost-percentage' },
+          { title: 'Cost of Goods Sold (FOD_004)', href: '/food-cost/cost-metrics/cost-of-goods-sold' },
         ]
       },
       { 
         title: 'Variance & Yield', 
         
         items: [
-          { title: 'Theoretical vs Actual Cost Variance (FOD_005)', href: '/food-cost/variance/cost-variance' },
-          { title: 'Portion Control Variance (FOD_006)', href: '/food-cost/variance/portion-control' },
-          { title: 'Recipe Adherence Rate % (FOD_007)', href: '/food-cost/variance/recipe-adherence' },
-          { title: 'Waste & Spoilage by Category (FOD_008)', href: '/food-cost/variance/waste-spoilage' },
-          { title: 'Shrink & Variance (FOD_009)', href: '/food-cost/variance/shrink' },
+          { title: 'Theoretical vs Actual Cost Variance (FOD_005)', href: '/food-cost/variance-yield/theoretical-actual-variance' },
+          { title: 'Portion Control Variance (FOD_006)', href: '/food-cost/variance-yield/portion-control-variance' },
+          { title: 'Recipe Adherence Rate % (FOD_007)', href: '/food-cost/variance-yield/recipe-adherence-rate' },
+          { title: 'Waste & Spoilage by Category (FOD_008)', href: '/food-cost/variance-yield/waste-spoilage-percentage' },
+          { title: 'Shrink & Variance (FOD_009)', href: '/food-cost/variance-yield/shrink-variance' },
         ]
       },
       { 
         title: 'Inventory Optimization', 
         
         items: [
-          { title: 'Par-Level Adherence % (FOD_010)', href: '/food-cost/optimization/par-level' },
-          { title: 'Inventory Age Analysis (FOD_011)', href: '/food-cost/optimization/age-analysis' },
-          { title: 'Top 10 Item Food Cost % (FOD_012)', href: '/food-cost/optimization/top-item-cost' },
+          { title: 'Par-Level Adherence % (FOD_010)', href: '/food-cost/inventory-optimization/par-level-adherence' },
+          { title: 'Inventory Age Analysis (FOD_011)', href: '/food-cost/inventory-optimization/inventory-age-analysis' },
+          { title: 'Top 10 Item Food Cost % (FOD_012)', href: '/food-cost/inventory-optimization/top-ten-item-food-cost' },
         ]
       },
       { 
         title: 'Supplier Performance', 
         
         items: [
-          { title: 'Vendor On-Time/In-Full (FOD_013)', href: '/food-cost/supplier/otif' },
-          { title: 'Purchase Price Variance (FOD_014)', href: '/food-cost/supplier/price-variance' },
-          { title: 'Vendor Quality Score (FOD_015)', href: '/food-cost/supplier/quality-score' },
-          { title: 'FEFO Compliance % (FOD_016)', href: '/food-cost/supplier/fefo-compliance' },
+          { title: 'Vendor On-Time/In-Full (FOD_013)', href: '/food-cost/supplier-performance/vendor-otif' },
+          { title: 'Purchase Price Variance (FOD_014)', href: '/food-cost/supplier-performance/purchase-price-variance' },
+          { title: 'Vendor Quality Score (FOD_015)', href: '/food-cost/supplier-performance/vendor-quality-score' },
+          { title: 'FEFO Compliance % (FOD_016)', href: '/food-cost/supplier-performance/fefo-compliance' },
         ]
       },
     ],
@@ -318,10 +318,10 @@ const menuSections: MenuSection[] = [
           { title: 'Loyalty Program Active Rate (DIG_012)', href: '/digital/marketing/loyalty-active' },
           { title: 'Promo Code Redemption Rate (DIG_013)', href: '/digital/marketing/promo-redemption' },
           { title: 'Email Open Rate % (DIG_014)', href: '/digital/marketing/email-open' },
-          { title: 'Social Media Engagement % (DIG_015)', href: '/digital/marketing/social-engagement' },
-          { title: 'Website Traffic to Conversion % (DIG_016)', href: '/digital/marketing/web-conversion' },
-          { title: 'Influencer Campaign Reach (DIG_017)', href: '/digital/marketing/influencer-reach' },
-          { title: 'Reservation Conversion Rate (DIG_018)', href: '/digital/marketing/reservation-conversion' },
+          { title: 'Loyalty Program Metrics (DIG_015)', href: '/digital/marketing/loyalty-program-metrics' },
+          { title: 'Social Media Performance (DIG_016)', href: '/digital/marketing/social-media-performance' },
+          { title: 'Influencer Campaign Reach (DIG_017)', href: '/digital/marketing/influencer-campaign-reach' },
+          { title: 'Reservation Conversion Rate (DIG_018)', href: '/digital/marketing/reservation-conversion-rate' },
         ]
       },
     ],
@@ -335,14 +335,14 @@ const menuSections: MenuSection[] = [
         title: 'Location Performance', 
         
         items: [
-          { title: 'Revenue Variance by Location (CMP_001)', href: '/comparative/location/revenue-variance' },
-          { title: 'Same-Store Sales Growth Variance (CMP_002)', href: '/comparative/location/sssg-variance' },
-          { title: 'Prime Cost % Ranking (CMP_003)', href: '/comparative/location/prime-cost-ranking' },
-          { title: 'Food Cost % Ranking (CMP_004)', href: '/comparative/location/food-cost-ranking' },
-          { title: 'Labor Cost % Ranking (CMP_005)', href: '/comparative/location/labor-cost-ranking' },
-          { title: 'EBITDA Margin by Location (CMP_006)', href: '/comparative/location/ebitda-ranking' },
-          { title: 'Profit Margin Variance (CMP_007)', href: '/comparative/location/profit-variance' },
-          { title: 'Customer Satisfaction Spread (CMP_008)', href: '/comparative/location/satisfaction-spread' },
+          { title: 'Revenue Variance by Location (CMP_001)', href: '/comparative/location-performance/revenue-variance' },
+          { title: 'Same-Store Sales Growth Variance (CMP_002)', href: '/comparative/location-performance/sales-growth-variance' },
+          { title: 'Prime Cost % Ranking (CMP_003)', href: '/comparative/location-performance/prime-cost-ranking' },
+          { title: 'Food Cost % Ranking (CMP_004)', href: '/comparative/location-performance/food-cost-ranking' },
+          { title: 'Labor Cost % Ranking (CMP_005)', href: '/comparative/location-performance/labor-cost-ranking' },
+          { title: 'EBITDA Margin by Location (CMP_006)', href: '/comparative/location-performance/ebitda-margin-location' },
+          { title: 'Profit Margin Variance (CMP_007)', href: '/comparative/location-performance/profit-margin-variance' },
+          { title: 'Customer Satisfaction Spread (CMP_008)', href: '/comparative/location-performance/customer-satisfaction-spread' },
         ]
       },
       { 
@@ -352,17 +352,17 @@ const menuSections: MenuSection[] = [
           { title: 'Bottom 20% Menu Items by Location (CMP_009)', href: '/comparative/menu/bottom-items' },
           { title: 'Top 10 Item Revenue Contribution % (CMP_010)', href: '/comparative/menu/top-items' },
           { title: 'Menu Mix Variance Across Locations (CMP_011)', href: '/comparative/menu/mix-variance' },
-          { title: 'Item Contribution Margin % (CMP_012)', href: '/comparative/menu/contribution-margin' },
+          { title: 'Item Contribution Margin % (CMP_012)', href: '/comparative/menu/item-contribution-margin' },
         ]
       },
       { 
         title: 'Operational Consistency', 
         
         items: [
-          { title: 'Table Turnover Variance (CMP_013)', href: '/comparative/consistency/turnover-variance' },
-          { title: 'Labor Productivity Scatter (CMP_014)', href: '/comparative/consistency/productivity-scatter' },
+          { title: 'Table Turnover Variance (CMP_013)', href: '/comparative/consistency/table-turnover-variance' },
+          { title: 'Labor Productivity Scatter (CMP_014)', href: '/comparative/consistency/labor-productivity-scatter' },
           { title: 'Waste % Variance (CMP_015)', href: '/comparative/consistency/waste-variance' },
-          { title: 'Order Accuracy Variance (CMP_016)', href: '/comparative/consistency/accuracy-variance' },
+          { title: 'Order Accuracy Variance (CMP_016)', href: '/comparative/consistency/order-accuracy-variance' },
           { title: 'Complaint Rate Variance (CMP_017)', href: '/comparative/consistency/complaint-variance' },
         ]
       },
