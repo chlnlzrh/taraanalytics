@@ -17,7 +17,7 @@ export const useMenuState = create<MenuState>()(
     (set) => ({
       expandedSections: [], // Start collapsed by default per CLAUDE.md
       expandedSubSections: [],
-      isCollapsed: false,
+      isCollapsed: true, // Start with sidebar collapsed for cleaner initial view
       toggleSection: (sectionId: string) =>
         set((state) => {
           const isCurrentlyExpanded = state.expandedSections.includes(sectionId)
@@ -29,13 +29,10 @@ export const useMenuState = create<MenuState>()(
               expandedSubSections: state.expandedSubSections.filter((id) => !id.startsWith(sectionId + '-'))
             }
           } else {
-            // Expanding section - auto-expand first subsection
-            const firstSubSectionId = `${sectionId}-location-performance` // For comparative analytics
+            // Expanding section - let user manually expand subsections
             return {
               expandedSections: [...state.expandedSections, sectionId],
-              expandedSubSections: sectionId === 'comparative' 
-                ? [...state.expandedSubSections, firstSubSectionId]
-                : state.expandedSubSections
+              expandedSubSections: state.expandedSubSections
             }
           }
         }),

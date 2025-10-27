@@ -42,10 +42,10 @@ interface MenuSection {
 
 const menuSections: MenuSection[] = [
   {
-    id: 'dashboard',
-    title: 'Dashboard',
-    icon: Home,
-    href: '/',
+    id: 'executive-dashboard',
+    title: 'Executive Dashboard',
+    icon: TrendingUp,
+    href: '/executive-dashboard',
   },
   {
     id: 'financial',
@@ -64,21 +64,21 @@ const menuSections: MenuSection[] = [
       { 
         title: 'Profitability & Margins', 
         items: [
-          { title: 'Gross Profit Margin % (FIN_005)', href: '/financial/profitability/gross-profit' },
-          { title: 'EBITDA Margin % (FIN_006)', href: '/financial/profitability/ebitda' },
-          { title: 'Net Profit Margin % (FIN_007)', href: '/financial/profitability/net-profit' },
+          { title: 'Gross Profit Margin % (FIN_005)', href: '/financial/profitability/gross-profit-margin' },
+          { title: 'EBITDA Margin % (FIN_006)', href: '/financial/profitability/ebitda-margin' },
+          { title: 'Net Profit Margin % (FIN_007)', href: '/financial/profitability/net-profit-margin' },
           { title: 'Prime Cost % (FIN_008)', href: '/financial/profitability/prime-cost' },
-          { title: 'Breakeven Point (FIN_009)', href: '/financial/profitability/breakeven' },
+          { title: 'Breakeven Point (FIN_009)', href: '/financial/profitability/breakeven-point' },
         ]
       },
       { 
         title: 'India-Specific Financial', 
         items: [
-          { title: 'GST Collection & Reconciliation (FIN_010)', href: '/financial/india-specific/gst-collection' },
+          { title: 'GST Collection & Reconciliation (FIN_010)', href: '/financial/india-specific/gst-collection-reconciliation' },
           { title: 'Aggregator Revenue % (FIN_011)', href: '/financial/india-specific/aggregator-revenue' },
-          { title: 'Discount & Promotion Cost % (FIN_012)', href: '/financial/india-specific/discount-cost' },
+          { title: 'Discount & Promotion Cost % (FIN_012)', href: '/financial/india-specific/discount-promotion-cost' },
           { title: 'Cash vs Digital Payment Mix (FIN_013)', href: '/financial/india-specific/payment-mix' },
-          { title: 'Utility Cost per Revenue Rupee (FIN_014)', href: '/financial/india-specific/utility-cost' },
+          { title: 'Utility Cost per Revenue Rupee (FIN_014)', href: '/financial/india-specific/utility-cost-per-revenue' },
         ]
       },
     ],
@@ -92,30 +92,30 @@ const menuSections: MenuSection[] = [
         title: 'Service & Capacity', 
         
         items: [
-          { title: 'Table Turnover Rate (OPR_001)', href: '/operational/service/table-turnover' },
-          { title: 'Seat Occupancy % (OPR_002)', href: '/operational/service/seat-occupancy' },
-          { title: 'Average Service Time (OPR_003)', href: '/operational/service/service-time' },
-          { title: 'Kitchen Ticket Time (OPR_004)', href: '/operational/service/kitchen-time' },
-          { title: 'Peak vs Off-Peak Ratio (OPR_005)', href: '/operational/service/peak-ratio' },
+          { title: 'Table Turnover Rate (OPR_001)', href: '/operational/service-capacity/table-turnover-rate' },
+          { title: 'Seat Occupancy % (OPR_002)', href: '/operational/service-capacity/seat-occupancy' },
+          { title: 'Average Service Time (OPR_003)', href: '/operational/service-capacity/average-service-time' },
+          { title: 'Kitchen Ticket Time (OPR_004)', href: '/operational/service-capacity/kitchen-ticket-time' },
+          { title: 'Peak vs Off-Peak Ratio (OPR_005)', href: '/operational/service-capacity/peak-vs-off-peak-ratio' },
         ]
       },
       { 
         title: 'Labor Productivity', 
         
         items: [
-          { title: 'Revenue per Labor Hour (OPR_006)', href: '/operational/productivity/revenue-per-hour' },
-          { title: 'Covers per Labor Hour (OPR_007)', href: '/operational/productivity/covers-per-hour' },
-          { title: 'Labor Hours per ₹1000 Revenue (OPR_008)', href: '/operational/productivity/hours-per-revenue' },
-          { title: 'Overtime Hours % (OPR_009)', href: '/operational/productivity/overtime' },
+          { title: 'Revenue per Labor Hour (OPR_006)', href: '/operational/labor-productivity/revenue-per-labor-hour' },
+          { title: 'Covers per Labor Hour (OPR_007)', href: '/operational/labor-productivity/covers-per-labor-hour' },
+          { title: 'Labor Hours per ₹1000 Revenue (OPR_008)', href: '/operational/labor-productivity/labor-hours-per-revenue' },
+          { title: 'Overtime Hours % (OPR_009)', href: '/operational/labor-productivity/overtime-hours' },
         ]
       },
       { 
         title: 'Inventory & Assets', 
         
         items: [
-          { title: 'Inventory Turnover Ratio (OPR_010)', href: '/operational/inventory/turnover' },
-          { title: 'Days of Inventory on Hand (OPR_011)', href: '/operational/inventory/days-on-hand' },
-          { title: 'Equipment Downtime Hours (OPR_012)', href: '/operational/inventory/downtime' },
+          { title: 'Inventory Turnover Ratio (OPR_010)', href: '/operational/inventory-asset/inventory-turnover-ratio' },
+          { title: 'Days of Inventory on Hand (OPR_011)', href: '/operational/inventory-asset/days-of-inventory' },
+          { title: 'Equipment Downtime Hours (OPR_012)', href: '/operational/inventory-asset/equipment-downtime-hours' },
         ]
       },
       { 
